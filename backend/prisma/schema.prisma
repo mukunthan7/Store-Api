@@ -11,55 +11,40 @@ datasource db {
   relationMode = "prisma"
 }
 
+model Supplier{
+  id String @id @default(uuid())
+  supplierName String @unique
+  supplierAddress String  
+  product Product[]
+}
+
 model Product{
   id String @id @default(uuid())
-  productName String
-  productDesc String
-  supplier Suppliers[]
-  transaction Transactions[]
-  distribution Distributions[]
-  // stockDetails StockDetails[]
+  productName String @unique
+  productDescription String
+  supplierId String @unique
+  supplierName Supplier @relation(fields: [supplierId], references: [id])
+  Transaction Transaction[]
+  Distribution Distribution[]
 }
 
-model Suppliers{
+model Transaction{
   id String @id @default(uuid())
-  productID String
-  product Product @relation(fields: [productID],references: [id])
-  @@index([productID])
-  transaction Transactions[]
-}
-
-model Transactions{
-  id String @id @default(uuid())
-  productID String
-  supplierID String
-  product Product @relation(fields: [productID], references: [id])
-  supplier Suppliers @relation(fields: [supplierID],references: [id])
+  productId String 
+  productName Product @relation(fields: [productId], references: [id]) 
   quantity Int
-  createdAt DateTime @default(now())
-
-  @@index([productID])
-  @@index([supplierID])
+  @@index([productId])
 }
 
-model Distributions{
+model Distribution {
   id String @id @default(uuid())
-  productID String
-  product Product @relation(fields: [productID],references: [id])
-  buyerName String
-  purpose String
-  college String
-  dept String
+  productId String 
+  productName Product @relation(fields: [productId], references: [id]) 
   quantity Int
-  createdAt DateTime @default(now())
-
-  @@index([productID])
-}
-model StockDetails{
-  id String @id @default(uuid())
-  productID String
-  updatedAt DateTime @updatedAt
-  product String @unique
-  quantity Int
-  
+  Buyer String 
+  collegeName String 
+  Department String
+  Purpose String
+  date DateTime @default(now())
+  @@index([productId])
 }
