@@ -19,7 +19,7 @@ const getDistribution = async(req,res) => {
 
 const postDistribution = async(req,res) => {
     try{
-        const { productName, quantity, Buyer, collegeName, Department, Purpose  } = req.body;
+        const { productName, quantity, Buyer, collegeName, Department, Purpose } = req.body;
         const response = await prisma.distribution.create({
             data: {
                 productName : {
@@ -39,6 +39,7 @@ const postDistribution = async(req,res) => {
         console.log(error);
     }
 }
+
 
 router.get("/", getDistribution);
 router.post("/", postDistribution);

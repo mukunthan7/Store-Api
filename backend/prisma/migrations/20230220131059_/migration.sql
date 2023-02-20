@@ -15,6 +15,7 @@ CREATE TABLE `Product` (
     `productDescription` VARCHAR(191) NOT NULL,
     `supplierId` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `Product_productName_key`(`productName`),
     UNIQUE INDEX `Product_supplierId_key`(`supplierId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -25,14 +26,14 @@ CREATE TABLE `Transaction` (
     `productId` VARCHAR(191) NOT NULL,
     `quantity` INTEGER NOT NULL,
 
-    UNIQUE INDEX `Transaction_productId_key`(`productId`),
+    INDEX `Transaction_productId_idx`(`productId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Distribution` (
     `id` VARCHAR(191) NOT NULL,
-    `productId` VARCHAR(191) NOT NULL,
+    `TransactionId` VARCHAR(191) NOT NULL,
     `quantity` INTEGER NOT NULL,
     `Buyer` VARCHAR(191) NOT NULL,
     `collegeName` VARCHAR(191) NOT NULL,
@@ -40,6 +41,6 @@ CREATE TABLE `Distribution` (
     `Purpose` VARCHAR(191) NOT NULL,
     `date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    UNIQUE INDEX `Distribution_productId_key`(`productId`),
+    INDEX `Distribution_TransactionId_idx`(`TransactionId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

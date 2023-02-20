@@ -1,3 +1,4 @@
+
 import {PrismaClient} from "@prisma/client"
 import { Router } from "express";
 
@@ -39,6 +40,7 @@ const postTransaction = async(req,res) => {
         console.log(error);
     }
 }
+
 
 router.get("/", getTransaction);
 router.post("/", postTransaction);
