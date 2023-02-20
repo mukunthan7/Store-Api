@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Product{
+  id String @id @default(uuid())
+  productName String
+  productDesc String
+  supplier Suppliers[]
+  transaction Transactions[]
+  distribution Distributions[]
+  // stockDetails StockDetails[]
+}
+
+model Suppliers{
+  id String @id @default(uuid())
+  productID String
+  product Product @relation(fields: [productID],references: [id])
+  @@index([productID])
+  transaction Transactions[]
+}
+
+model Transactions{
+  id String @id @default(uuid())
+  productID String
+  supplierID String
+  product Product @relation(fields: [productID], references: [id])
+  supplier Suppliers @relation(fields: [supplierID],references: [id])
+  quantity Int
+  createdAt DateTime @default(now())
+
+  @@index([productID])
+  @@index([supplierID])
+}
+
+model Distributions{
+  id String @id @default(uuid())
+  productID String
+  product Product @relation(fields: [productID],references: [id])
+  buyerName String
+  purpose String
+  college String
+  dept String
+  quantity Int
+  createdAt DateTime @default(now())
+
+  @@index([productID])
+}
+model StockDetails{
+  id String @id @default(uuid())
+  productID String
+  updatedAt DateTime @updatedAt
+  product String @unique
+  quantity Int
+  
+}
