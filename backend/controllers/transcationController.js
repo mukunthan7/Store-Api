@@ -25,6 +25,7 @@ const getTransaction = async(req,res) => {
 const postTransaction = async(req,res) => {
     try{
         const { productName, quantity  } = req.body;
+        Number(quantity);
         const response = await prisma.transaction.create({
             data: {
                 productName : {

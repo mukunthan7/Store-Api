@@ -8,7 +8,7 @@ import distributionController from "./controllers/distributionController.js";
 import stockController from "./controllers/stockController.js";
 
 const app = Express();
-const PORT = 3000 || process.env.PORT;
+const PORT = 4000 || process.env.PORT;
 
 
 app.use(bodyParser.json());
@@ -25,5 +25,5 @@ app.get("/", (req, res) => {
 );
 
 app.listen(PORT, () => {
-    console.log("Server started on port http://localhost:3000");
+    console.log("Server started on port http://localhost:4000");
 });

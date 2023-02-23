@@ -19,10 +19,10 @@ const getStock = async (req, res) => {
         });
         const stock = transaction.map((item) => {   
             const { productName, productId, quantity } = item;
-            const distributionQuantity = distribution.filter((item) => item.TransactionId === productId).reduce((acc, item) => acc + item.quantity, 0);
+            const distributionQuantity = distribution.filter((item) => item.TransactionId === productId).reduce((acc, item) => acc + parseInt(item.quantity), 0);
             return {
                 productName: productName.productName,
-                quantity: quantity - distributionQuantity,
+                quantity: parseInt(quantity) - distributionQuantity,
             };
         });
         res.status(200).json(stock);
